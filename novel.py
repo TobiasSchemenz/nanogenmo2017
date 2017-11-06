@@ -73,7 +73,7 @@ def create_second_half_section(first_half_sections, second_half_sections, loc, t
         intro = "Martyr-RETURN: Return to old world."
     elif stage == 8:
         intro = "Martyr-CHANGE: Change."
-    text = intro + " Now, I stayed in " if tool == 0 else "I went back to "
+    text = intro + (" Now, I stayed in " if tool == 0 else "I went back to ")
     text += "{} where I used {} for {} words.".format(
         first_half_sections[loc]['location'], first_half_sections[tool]['tool'], count)
     effects = ['effect#%i-%i' % (number, x)
@@ -92,6 +92,8 @@ def create_second_half_section(first_half_sections, second_half_sections, loc, t
         rest = sections[-1]['effects'][1:] + sections[-1]['rest']
     text += " {} had an effect on this.".format(
         " and ".join(used))
+    while (len(text.split()) < count):
+        text += " Bla bla bla."
     return {
         'count': len(text.split()),
         'stage': stage,
@@ -149,13 +151,15 @@ def create_novel(filepath, min_words=50000):
     with open(filepath, 'w+') as novel_file:
         current_stage = 1
         novel_file.write('# Novel\n\n## Stage #1\n')
+        cc = 0
         for section in first_half_sections + second_half_sections:
             if section['stage'] > current_stage:
                 current_stage = section['stage']
                 novel_file.write('\n## Stage #%i\n' % section['stage'])
             novel_file.write(('\n### Section #%i\n\n' %
                               section['section']) + section['text'] + '\n')
-
+            cc += section['count']
+    print "WORDS:",cc
 
 if __name__ == '__main__':
     create_novel('test.md', min_words=50000)
