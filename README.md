@@ -6,7 +6,7 @@ Each commit should meet that criteria.
 
 ## General Idea
 
-I take my inspiration from Dan Harmon's Story Cirlce, the Hero's Journey, Dramatica, the Seven-Plot-Point system, the Story Grid system, and the Scene-Sequel Format, in no particular order.
+I take my inspiration from Dan Harmon's Story Circle, the Hero's Journey, Dramatica, the Seven-Plot-Point system, the Story Grid system, and the Scene-Sequel Format, in no particular order.
 
 ## First Version
 
