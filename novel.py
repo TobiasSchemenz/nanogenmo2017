@@ -2,6 +2,7 @@
 Generate a novel out of nothing.
 """
 import random
+import time
 
 
 def get_stage(word_count, stage_length):
@@ -92,7 +93,7 @@ def create_second_half_section(first_half_sections, second_half_sections, loc, t
         rest = sections[-1]['effects'][1:] + sections[-1]['rest']
     text += " {} had an effect on this.".format(
         " and ".join(used))
-    while (len(text.split()) < count):
+    while len(text.split()) < count:
         text += " Bla bla bla."
     return {
         'count': len(text.split()),
@@ -145,21 +146,20 @@ def create_novel(filepath, min_words=50000):
         second_half_sections.append(create_second_half_section(
             first_half_sections, second_half_sections, first_half - 1 - i, i))
         word_count += second_half_sections[-1]['count']
-    print word_count
+    print "Wordcount:", word_count
 
     # Save Novel
     with open(filepath, 'w+') as novel_file:
         current_stage = 1
         novel_file.write('# Novel\n\n## Stage #1\n')
-        cc = 0
         for section in first_half_sections + second_half_sections:
             if section['stage'] > current_stage:
                 current_stage = section['stage']
                 novel_file.write('\n## Stage #%i\n' % section['stage'])
             novel_file.write(('\n### Section #%i\n\n' %
                               section['section']) + section['text'] + '\n')
-            cc += section['count']
-    print "WORDS:",cc
+
 
 if __name__ == '__main__':
-    create_novel('test.md', min_words=50000)
+    create_novel('output/version1-{}.md'.format(int(time.time())),
+                 min_words=50000)

@@ -1,2 +1,2 @@
-cat test.md | wc -w
-cat test.md | tr -d '[:punct:][:digit:]' | wc -w
+cat $1 | wc -w
+cat $1 | tr -d '[:punct:][:digit:]' | wc -w
